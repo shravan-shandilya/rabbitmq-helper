@@ -5,7 +5,7 @@ An easy to use module for rabbitmq worker queues. Create consumer and producers 
 
 ## Installation
 
-  `npm install @satoshi_nakamoto/rabbitmq-helper`
+  `npm install rabbitmq-helper@latest`
 
 ## Usage
 
@@ -53,4 +53,4 @@ consumer.start();
 
 ## Contributing
 
-This is a very quick hack. PRs are welcome!
+This was a very quick hack. PRs are welcome!
