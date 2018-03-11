@@ -1,0 +1,27 @@
+{
+  "name": "rabbitmq-helper",
+  "version": "0.0.1",
+  "description": "Easy to use library for rabbitmq worker queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shravan-shandilya/rabbitmq-helper.git"
+  },
+  "keywords": [
+    "rabbitmq",
+    "queue",
+    "amqplib"
+  ],
+  "author": "Shravan Shandilya",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shravan-shandilya/rabbitmq-helper/issues"
+  },
+  "homepage": "https://github.com/shravan-shandilya/rabbitmq-helper#readme",
+  "dependencies": {
+    "amqplib": "^0.5.2"
+  }
+}
