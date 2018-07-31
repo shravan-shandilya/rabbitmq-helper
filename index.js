@@ -60,9 +60,20 @@ class RabbitMqProducer {
 class RabbitMqConsumer extends EventEmitter {
   constructor(options) {
     super();
+    if (
+      options == undefined ||
+      !options.ip ||
+      !options.queue ||
+      !options.user ||
+      !options.password
+    ) {
+      throw new Error("incorrect options to initialize RabbitMqConsumer");
+    }
     this.status = false;
     amqp
-      .connect("amqp://" + options.ip)
+      .connect(
+        "amqp://" + options.user + ":" + options.password + "@" + options.ip
+      )
       .then(conn => {
         return conn.createChannel();
       })
