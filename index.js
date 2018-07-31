@@ -9,8 +9,8 @@ class RabbitMqProducer {
       options == undefined ||
       !options.ip ||
       !options.queue ||
-      !option.user ||
-      !option.password
+      !options.user ||
+      !options.password
     ) {
       throw new Error("incorrect options to initialize RabbitMqProducer");
     }
