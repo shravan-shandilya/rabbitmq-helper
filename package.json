@@ -1,6 +1,6 @@
 {
   "name": "rabbitmq-helper",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Easy to use library for rabbitmq worker queue",
   "main": "index.js",
   "scripts": {
