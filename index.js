@@ -1,7 +1,6 @@
 "use strict";
 const amqp = require("amqplib");
 const EventEmitter = require("events").EventEmitter;
-const util = require("util");
 
 class RabbitMqProducer {
   constructor(options) {
@@ -15,7 +14,6 @@ class RabbitMqProducer {
       throw new Error("incorrect options to initialize RabbitMqProducer");
     }
     this.queue = options.queue;
-    this.ip = options.ip;
     amqp
       .connect(
         "amqp://" + options.user + ":" + options.password + "@" + options.ip
@@ -25,12 +23,12 @@ class RabbitMqProducer {
       })
       .then(ch => {
         this.channel = ch;
-        return ch.assertQueue(options.queue, {
+        return ch.assertQueue(this.queue, {
           durable: true
         });
       })
       .then(assertResult => {
-        if (assertResult.queue === options.queue) {
+        if (assertResult.queue === this.queue) {
           return this;
         }
         throw new Error("requested and created queue names do not match");
@@ -48,7 +46,7 @@ class RabbitMqProducer {
     }
     let channelStatus = this.channel.sendToQueue(
       this.queue,
-      new Buffer(JSON.stringify(content)),
+      new Buffer.from(JSON.stringify(content)),
       {
         persistent: true
       }
@@ -69,7 +67,7 @@ class RabbitMqConsumer extends EventEmitter {
     ) {
       throw new Error("incorrect options to initialize RabbitMqConsumer");
     }
-    this.status = false;
+    this.queue = options.queue;
     amqp
       .connect(
         "amqp://" + options.user + ":" + options.password + "@" + options.ip
@@ -79,12 +77,12 @@ class RabbitMqConsumer extends EventEmitter {
       })
       .then(ch => {
         this.channel = ch;
-        return ch.assertQueue(options.queue, {
+        return ch.assertQueue(this.queue, {
           durable: true
         });
       })
       .then(assertResult => {
-        if (assertResult.queue === options.queue) {
+        if (assertResult.queue === this.queue) {
           this.channel.consume(
             this.queue,
             msg => {
@@ -97,14 +95,6 @@ class RabbitMqConsumer extends EventEmitter {
         }
         throw new Error("requested and created queue names do not match");
       });
-  }
-
-  start() {
-    this.status = true;
-  }
-
-  stop() {
-    this.status = false;
   }
 }
 
